@@ -708,4 +708,4 @@ if (foundInText) {
   }
 
 });
-client.login("REDACTED_DISCORD_TOKEN");
+client.login(process.env.BOT_TOKEN);
