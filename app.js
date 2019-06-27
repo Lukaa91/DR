@@ -15,7 +15,7 @@ const log = message => {
   console.log(`[${moment().format('YYYY-MM-DD HH:mm:ss')}] ${message}`);
 };
 client.on("ready", () => {
-	client.user.setActivity('idiots playing with commands', { type: 'WATCHING' })
+	client.user.setActivity('on mc.divinerealms.us | ?help', { type: 'PLAYING' })
 	.then(presence => console.log(`Activity set to ${presence.game ? presence.game.name : 'none'}`))
 	.catch(console.error);
   console.log("Online sam");
@@ -34,7 +34,7 @@ fs.readdir('./commands/', (err, files) => {
   });
 });
 //Money role
-let moneyRole = 'Admin Perms'
+let moneyRole = '🛡'
 //JSON
 const items = JSON.parse(fs.readFileSync('items.json', 'utf8'));
 //:D
@@ -260,8 +260,8 @@ const youtube = new YouTube(GOOGLE_API_KEY);
 
 const queue = new Map();
 client.on('message', async msg => {
-	let DJRole = 'Admin Perms'
-	let OwnerRole = '▪ Discord Dev'
+	let DJRole = '👑 Tim Vlasnika'
+	let OwnerRole = '🛡'
 	if (msg.author.bot) return;
 	if (!msg.content.startsWith(PREFIX)) return;
 
@@ -626,9 +626,6 @@ client.on('message', message => {
 
     if (command === 'prefix') {
         message.channel.send(`The current prefix is \`${prefix}\``);
-    }
-    if (command === 'gej?') {
-        message.channel.send(`no`);
     }
     if(command === "dmall") {
 		let member = message.guild.member(message.mentions.users.first()) || message.guild.members.get(args[0])
