@@ -1,0 +1,4 @@
+{
+  "_comment": "Copy this file to filter.json and add your own filtered terms. filter.json is gitignored so your list never gets committed.",
+  "blacklisted": ["http", "bit.ly"]
+}

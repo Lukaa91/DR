@@ -167,8 +167,8 @@ client.on('message', message => {
     // Add / Remove Money
     if (msg.startsWith(`${prefix}SETMONEY`)) {
 
-        if (!message.member.roles.find("name", moneyRole)) {
-            message.channel.send('**You need the role `' + moneyRole + '` to use this command...**');
+        if (client.elevation(message) < 3) {
+            message.channel.send('**You need to be an admin to use this command.**');
             return;
         }
 
@@ -627,31 +627,6 @@ client.on('message', message => {
     if (command === 'prefix') {
         message.channel.send(`The current prefix is \`${prefix}\``);
     }
-    if(command === "dmall") {
-		let member = message.guild.member(message.mentions.users.first()) || message.guild.members.get(args[0])
-		if(!message.member.hasPermission("ADMINISTRATOR"))
-			return message.reply({embed: {
-			  color: 0xC64540,
-			  description: "No permission."
-			}});
-		let DMALL = args.join(" ").slice(0);
-	  if (!DMALL) return message.channel.send({embed: {
-		color: 0xC64540,
-		description: `${message.member} Please enter a message to dm all the players in the discord server.`
-	  }});
-
-	  message.guild.members.forEach((player) => {
-		  message.guild.member(player).send({embed: {
-			color: 0xC64540,
-			title: `Announcement from ${message.guild.name} by ${message.author.tag}`,
-			description: `${DMALL}`
-		  }});
-	  });
-	  message.channel.send({embed: {
-		color: 0xC64540,
-		description: "All players in this discord server have got your message."
-	}});
-  }
 });
 
 //Nema gde da se svrstaju nesto random
@@ -664,11 +639,16 @@ client.on('message', message => {
 };
 });
 client.on('message', (message) => {
-let blacklisted = ['http', 'kurac', 'bit.ly', 'picka', 'peder', 'jebi', 'jebo', 'jeba', 'jebem', 'jebao', 'jebati', 'jebacu', 'kita', 'kurcina', 'kitina', 'kurcic', 'picka', 'pickica', 'picketina', 'picko', 'picke', 'pickice', 'picketino', 'majmune', 'majmuncino', 'retard', 'retardu', 'retarde', 'retardi']
-if (message.author.id === '237171563760320514') return;
-if (message.author.id === '276715825262755842') return;
-if (message.author.id === '154924680770355200') return;
-if (message.author.id === '240176275753271306') return;
+// Word filter list is intentionally NOT committed. Copy filter.example.json
+// to filter.json and add your own terms. Missing file = filter disabled.
+let blacklisted = [];
+try { blacklisted = require('./filter.json').blacklisted || []; }
+catch (e) { console.log('No filter.json found - word filter disabled.'); }
+// staff bypass the word filter (see client.elevation)
+if (message.guild && client.elevation(message) >= 2) return;
+
+
+
 if (message.author.bot) return;
 
 
